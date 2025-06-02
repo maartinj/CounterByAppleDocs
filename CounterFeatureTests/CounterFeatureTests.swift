@@ -86,6 +86,8 @@ struct CounterFeatureTests {
     func numberFact() async {
         let store = TestStore(initialState: CounterFeature.State()) {
             CounterFeature()
+        } withDependencies: {
+            $0.numberFact.fetch = { "\($0) is a good number."}
         }
 
         await store.send(.factButtonTapped) {
@@ -94,9 +96,9 @@ struct CounterFeatureTests {
         // ❌ An effect returned for this action is still running.
         //    It must complete before the end of the test. …
 
-        await store.receive(\.factResponse, timeout: .seconds(1)) {
+        await store.receive(\.factResponse) {
             $0.isLoading = false
-            $0.fact = "???"
+            $0.fact = "0 is a good number."
         }
         // ❌ A state change does not match expectation: …
         //
@@ -107,5 +109,15 @@ struct CounterFeatureTests {
         //         isLoading: false,
         //         isTimerRunning: false
         //       )
+        // ❌ @Dependency(\.numberFact) has no test implementation, but was
+        //    accessed from a test context:
+        //
+        //   Location:
+        //     CounterFeature.swift:70
+        //   Dependency:
+        //     NumberFactClient
+        //
+        // Dependencies registered with the library are not allowed to use
+        // their default, live implementations when run from tests.
     }
 }
