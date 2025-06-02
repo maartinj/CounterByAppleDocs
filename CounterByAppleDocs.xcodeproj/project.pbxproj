@@ -10,8 +10,19 @@
 		E4007A7B2DED1FE800816374 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = E4007A7A2DED1FE800816374 /* ComposableArchitecture */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		E485F7082DEDEAAB009ED1D3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4007A5F2DED1F2B00816374 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E4007A662DED1F2B00816374;
+			remoteInfo = CounterByAppleDocs;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		E4007A672DED1F2B00816374 /* CounterByAppleDocs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CounterByAppleDocs.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E485F7042DEDEAAB009ED1D3 /* CounterFeatureTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CounterFeatureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -33,6 +44,11 @@
 			path = CounterByAppleDocs;
 			sourceTree = "<group>";
 		};
+		E485F7052DEDEAAB009ED1D3 /* CounterFeatureTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CounterFeatureTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +60,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E485F7012DEDEAAB009ED1D3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -51,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				E4007A692DED1F2B00816374 /* CounterByAppleDocs */,
+				E485F7052DEDEAAB009ED1D3 /* CounterFeatureTests */,
 				E4007A682DED1F2B00816374 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				E4007A672DED1F2B00816374 /* CounterByAppleDocs.app */,
+				E485F7042DEDEAAB009ED1D3 /* CounterFeatureTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -89,6 +114,29 @@
 			productReference = E4007A672DED1F2B00816374 /* CounterByAppleDocs.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E485F7032DEDEAAB009ED1D3 /* CounterFeatureTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E485F70A2DEDEAAB009ED1D3 /* Build configuration list for PBXNativeTarget "CounterFeatureTests" */;
+			buildPhases = (
+				E485F7002DEDEAAB009ED1D3 /* Sources */,
+				E485F7012DEDEAAB009ED1D3 /* Frameworks */,
+				E485F7022DEDEAAB009ED1D3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E485F7092DEDEAAB009ED1D3 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				E485F7052DEDEAAB009ED1D3 /* CounterFeatureTests */,
+			);
+			name = CounterFeatureTests;
+			packageProductDependencies = (
+			);
+			productName = CounterFeatureTests;
+			productReference = E485F7042DEDEAAB009ED1D3 /* CounterFeatureTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -101,6 +149,10 @@
 				TargetAttributes = {
 					E4007A662DED1F2B00816374 = {
 						CreatedOnToolsVersion = 16.3;
+					};
+					E485F7032DEDEAAB009ED1D3 = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = E4007A662DED1F2B00816374;
 					};
 				};
 			};
@@ -122,12 +174,20 @@
 			projectRoot = "";
 			targets = (
 				E4007A662DED1F2B00816374 /* CounterByAppleDocs */,
+				E485F7032DEDEAAB009ED1D3 /* CounterFeatureTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		E4007A652DED1F2B00816374 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E485F7022DEDEAAB009ED1D3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -144,7 +204,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E485F7002DEDEAAB009ED1D3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E485F7092DEDEAAB009ED1D3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E4007A662DED1F2B00816374 /* CounterByAppleDocs */;
+			targetProxy = E485F7082DEDEAAB009ED1D3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		E4007A702DED1F2C00816374 /* Debug */ = {
@@ -326,6 +401,42 @@
 			};
 			name = Release;
 		};
+		E485F70B2DEDEAAB009ED1D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4P4GQMB6S7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mj.CounterFeatureTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CounterByAppleDocs.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CounterByAppleDocs";
+			};
+			name = Debug;
+		};
+		E485F70C2DEDEAAB009ED1D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4P4GQMB6S7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mj.CounterFeatureTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CounterByAppleDocs.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CounterByAppleDocs";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -343,6 +454,15 @@
 			buildConfigurations = (
 				E4007A732DED1F2C00816374 /* Debug */,
 				E4007A742DED1F2C00816374 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E485F70A2DEDEAAB009ED1D3 /* Build configuration list for PBXNativeTarget "CounterFeatureTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E485F70B2DEDEAAB009ED1D3 /* Debug */,
+				E485F70C2DEDEAAB009ED1D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
