@@ -47,4 +47,38 @@ struct CounterFeatureTests {
         //
         // (Expected: −, Actual: +)
     }
+
+    @Test
+    func timer() async {
+        let clock = TestClock()
+
+        let store = TestStore(initialState: CounterFeature.State()) {
+            CounterFeature()
+        } withDependencies: {
+            $0.continuousClock = clock
+        }
+
+        await store.send(.toggleTimerButtonTapped) {
+            $0.isTimerRunning = true
+        }
+        // ❌ An effect returned for this action is still running.
+        //    It must complete before the end of the test. …
+
+//        await store.receive(\.timerTick, timeout: .seconds(2)) {
+//            $0.count = 1
+//        }
+        // ✅ Test Suite 'Selected tests' passed.
+        //        Executed 1 test, with 0 failures (0 unexpected) in 1.044 (1.046) seconds
+        //    or:
+        // ❌ Expected to receive an action, but received none after 0.1 seconds.
+
+        await clock.advance(by: .seconds(1))
+        await store.receive(\.timerTick) {
+            $0.count = 1
+        }
+
+        await store.send(.toggleTimerButtonTapped) {
+            $0.isTimerRunning = false
+        }
+    }
 }
