@@ -14,9 +14,22 @@
 		E4007A672DED1F2B00816374 /* CounterByAppleDocs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CounterByAppleDocs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		E485F6FF2DEDBB74009ED1D3 /* Exceptions for "CounterByAppleDocs" folder in "CounterByAppleDocs" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = E4007A662DED1F2B00816374 /* CounterByAppleDocs */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E4007A692DED1F2B00816374 /* CounterByAppleDocs */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				E485F6FF2DEDBB74009ED1D3 /* Exceptions for "CounterByAppleDocs" folder in "CounterByAppleDocs" target */,
+			);
 			path = CounterByAppleDocs;
 			sourceTree = "<group>";
 		};
@@ -265,6 +278,7 @@
 				DEVELOPMENT_TEAM = 4P4GQMB6S7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CounterByAppleDocs/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -293,6 +307,7 @@
 				DEVELOPMENT_TEAM = 4P4GQMB6S7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CounterByAppleDocs/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

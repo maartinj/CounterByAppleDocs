@@ -20,6 +20,7 @@ struct CounterFeature {
     enum Action {
         case decrementButtonTapped
         case factButtonTapped
+        case factResponse(String)
         case incrementButtonTapped
     }
 
@@ -35,14 +36,31 @@ struct CounterFeature {
                 state.fact = nil
                 state.isLoading = true
 
-                let (data, _) = try await URLSession.shared
-                    .data(from: URL(string: "http://numbersapi.com/\(state.count)")!)
+//                let (data, _) = try await URLSession.shared
+//                    .data(from: URL(string: "http://numbersapi.com/\(state.count)")!)
                 // 🛑 'async' call in a function that does not support concurrency
                 // 🛑 Errors thrown from here are not handled
 
-                state.fact = String(decoding: data, as: UTF8.self)
-                state.isLoading = false
+//                state.fact = String(decoding: data, as: UTF8.self)
+//                state.isLoading = false
 
+//                return .run { send in
+                    // ✅ Do async work in here, and send actions back into the system.
+//                }
+
+                return .run { [count = state.count] send in
+                    let (data, _) = try await URLSession.shared
+                        .data(from: URL(string: "http://numbersapi.com/\(count)")!)
+                    let fact = String(decoding: data, as: UTF8.self)
+                    // state.fact = fact
+                    // 🛑 Mutable capture of 'inout' parameter 'state' is not allowed in
+                    // concurrently-executing code
+                    await send(.factResponse(fact))
+                }
+
+            case let .factResponse(fact):
+                state.fact = fact
+                state.isLoading = false
                 return .none
 
             case .incrementButtonTapped:
@@ -80,22 +98,22 @@ struct CounterView: View {
                 .padding()
                 .background(Color.black.opacity(0.1))
                 .cornerRadius(10)
-                Button("Fact") {
-                    store.send(.factButtonTapped)
-                }
-                .font(.largeTitle)
-                .padding()
-                .background(Color.black.opacity(0.1))
-                .cornerRadius(10)
+            }
+            Button("Fact") {
+                store.send(.factButtonTapped)
+            }
+            .font(.largeTitle)
+            .padding()
+            .background(Color.black.opacity(0.1))
+            .cornerRadius(10)
 
-                if store.isLoading {
-                    ProgressView()
-                } else if let fact = store.fact {
-                    Text(fact)
-                        .font(.largeTitle)
-                        .multilineTextAlignment(.center)
-                        .padding()
-                }
+            if store.isLoading {
+                ProgressView()
+            } else if let fact = store.fact {
+                Text(fact)
+                    .font(.largeTitle)
+                    .multilineTextAlignment(.center)
+                    .padding()
             }
         }
     }
