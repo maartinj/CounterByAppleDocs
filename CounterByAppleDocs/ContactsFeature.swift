@@ -20,49 +20,60 @@ struct ContactsFeature {
     struct State: Equatable {
         @Presents var destination: Destination.State?
         var contacts: IdentifiedArrayOf<Contact> = []
+        var path = StackState<ContactDetailFeature.State>()
     }
     enum Action {
         case addButtonTapped
         case destination(PresentationAction<Destination.Action>)
-        case deleteButtonTapped(id: Contact.ID)
+        case path(StackActionOf<ContactDetailFeature>)
         @CasePathable
         enum Alert: Equatable {
             case confirmDeletion(id: Contact.ID)
         }
     }
     @Dependency(\.uuid) var uuid
-    var body: some ReducerOf<Self> {
+      var body: some ReducerOf<Self> {
         Reduce { state, action in
-            switch action {
-            case .addButtonTapped:
-                state.destination = .addContact(
-                    AddContactFeature.State(
-                        contact: Contact(id: self.uuid(), name: "")
-                    )
-                )
-                return .none
+          switch action {
+          case .addButtonTapped:
+            state.destination = .addContact(
+              AddContactFeature.State(
+                contact: Contact(id: self.uuid(), name: "")
+              )
+            )
+            return .none
 
-            case let .destination(.presented(.addContact(.delegate(.saveContact(contact))))):
-                state.contacts.append(contact)
-                return .none
+          case let .destination(.presented(.addContact(.delegate(.saveContact(contact))))):
+            state.contacts.append(contact)
+            return .none
 
-            case let .destination(.presented(.alert(.confirmDeletion(id: id)))):
-                state.contacts.remove(id: id)
-                return .none
 
-            case .destination:
-                return .none
+          case let .destination(.presented(.alert(.confirmDeletion(id: id)))):
+            state.contacts.remove(id: id)
+            return .none
 
-            case let .deleteButtonTapped(id: id):
-                state.destination = .alert(.deleteConfirmation(id: id))
-                return .none
-            }
+
+          case .destination:
+            return .none
+
+
+          //  case let .deleteButtonTapped(id: id):
+          //    state.destination = .alert(.deleteConfirmation(id: id))
+          //    return .none
+
+
+          case .path:
+            return .none
+          }
         }
         .ifLet(\.$destination, action: \.destination) {
-            Destination.body
+          Destination.body
         }
+        .forEach(\.path, action: \.path) {
+          ContactDetailFeature()
+        }
+      }
     }
-}
 
 extension ContactsFeature {
     @Reducer
@@ -90,19 +101,18 @@ struct ContactsView: View {
     @Bindable var store: StoreOf<ContactsFeature>
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
             List {
                 ForEach(store.contacts) { contact in
-                    HStack {
-                        Text(contact.name)
-                        Spacer()
-                        Button {
-                            store.send(.deleteButtonTapped(id: contact.id))
-                        } label: {
+                    NavigationLink(state: ContactDetailFeature.State(contact: contact)) {
+                        HStack {
+                            Text(contact.name)
+                            Spacer()
                             Image(systemName: "trash")
-                                .foregroundColor(.red)
+                                .foregroundStyle(Color.red)
                         }
                     }
+                    .buttonStyle(.borderless)
                 }
             }
             .navigationTitle("Contacts")
@@ -115,6 +125,8 @@ struct ContactsView: View {
                     }
                 }
             }
+        } destination: { store in
+            ContactDetailView(store: store)
         }
         .sheet(
             item: $store.scope(state: \.destination?.addContact, action: \.destination.addContact)

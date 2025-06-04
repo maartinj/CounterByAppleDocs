@@ -14,9 +14,14 @@ struct CounterByAppleDocsApp: App {
         AppFeature()
     }
 
+    static let storeTwo = Store(initialState: ContactsFeature.State()) {
+        ContactsFeature()
+    }
+
     var body: some Scene {
         WindowGroup {
-            AppView(store: CounterByAppleDocsApp.store)
+//            AppView(store: CounterByAppleDocsApp.store)
+            ContactsView(store: CounterByAppleDocsApp.storeTwo)
         }
     }
 }
